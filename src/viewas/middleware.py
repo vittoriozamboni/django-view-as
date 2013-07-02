@@ -109,7 +109,12 @@ class ViewAsRenderMiddleware(BaseMiddleware):
         return response
 
     def render(self, request):
+        try:
+            z_index = settings.VIEWAS_Z_INDEX
+        except AttributeError:
+            z_index = None
         return render_to_string('viewas/header.html', {
+            'z_index': z_index,
             'request': request,
         })
 
